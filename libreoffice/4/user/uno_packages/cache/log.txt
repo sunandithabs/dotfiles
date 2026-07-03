@@ -1,0 +1,2 @@
+ERROR: Exception occurred: An error occurred while enabling: Zotero.jar: com.sun.star.registry.CannotRegisterImplementationException "Could not create Java implementation loader"
+ERROR: unopkg failed.

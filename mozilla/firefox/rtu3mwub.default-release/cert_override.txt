@@ -1,0 +1,4 @@
+# PSM Certificate Override Settings file
+# This is a generated file!  Do not edit.
+myflixer.to:443:	OID.2.16.840.1.101.3.4.2.1	F4:FE:23:0C:29:EF:76:59:80:FE:B4:12:26:AD:46:AF:28:2C:E4:70:11:D6:F9:C0:E1:33:8B:ED:15:F7:F1:FD	
+dream-lab.in:443:	OID.2.16.840.1.101.3.4.2.1	94:AF:CA:1E:5F:2C:2C:13:24:A9:0D:E7:33:5C:80:D4:F8:F7:DB:34:FA:7D:D1:68:20:C1:1E:68:F7:16:13:32	

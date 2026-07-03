@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart — Quickbites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Light mode */
+      --bg: #faf7f2;
+      --surface: #fff;
+      --dark: #1a1508;
+      --accent: #f03e1b;
+      --accent2: #f5a623;
+      --muted: #9a9080;
+      --border: #ede8df;
+      --card-shadow: 0 4px 32px rgba(26,21,8,0.08);
+    }
+
+    html.dark-mode {
+      --bg: #0d0c0a;
+      --surface: #1a1816;
+      --dark: #f0ece4;
+      --accent: #f03e1b;
+      --accent2: #f5a623;
+      --muted: #8a8078;
+      --border: #2a2620;
+      --card-shadow: 0 4px 32px rgba(0,0,0,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease;
+    }
+
+    html.dark-mode nav {
+      background: rgba(13,12,10,0.88);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      color: var(--dark);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+
+    .nav-cta {
+      background: var(--dark) !important;
+      color: #fff !important;
+      padding: 0.55rem 1.3rem;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--accent) !important; transform: translateY(-1px); }
+
+    .dark-toggle {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      width: 44px;
+      height: 24px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+      flex-shrink: 0;
+    }
+
+    .dark-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: transform 0.25s, background 0.25s;
+    }
+
+    html.dark-mode .dark-toggle::after {
+      transform: translateX(20px);
+      background: var(--accent2);
+    }
+
+    html.dark-mode .dark-toggle {
+      background: #252219;
+      border-color: #3a3628;
+    }
+
+    /* ─── DARK MODE FIXES ─── */
+    html.dark-mode .qty-btn {
+      background: #252219;
+      border-color: #3a3628;
+      color: #f0ece4;
+    }
+
+    html.dark-mode .qty-btn:hover {
+      background: #f03e1b;
+      color: #fff;
+      border-color: #f03e1b;
+    }
+
+    html.dark-mode .remove-btn {
+      color: #8a8078;
+    }
+
+    html.dark-mode .remove-btn:hover {
+      color: #f03e1b;
+    }
+
+    html.dark-mode .order-summary {
+      background: #1a1816;
+      border-color: #3a3628;
+      color: #f0ece4;
+    }
+
+    html.dark-mode .summary-title {
+      color: #f0ece4;
+    }
+
+    html.dark-mode .summary-row {
+      color: #f0ece4;
+    }
+
+    html.dark-mode .summary-row.total {
+      border-top-color: #3a3628;
+      color: #f0ece4;
+    }
+
+    html.dark-mode .checkout-btn {
+      background: #f03e1b;
+      color: #fff;
+    }
+
+    html.dark-mode .checkout-btn:hover {
+      background: #d94300;
+    }
+
+    html.dark-mode .continue-shopping a {
+      color: #f03e1b;
+    }
+
+    html.dark-mode .empty-state {
+      color: #8a8078;
+    }
+
+    html.dark-mode .empty-state h2 {
+      color: #f0ece4;
+    }
+
+    html.dark-mode .empty-state p {
+      color: #8a8078;
+    }
+
+    html.dark-mode .cart-title {
+      color: #f0ece4;
+    }
+
+    html.dark-mode .back-link {
+      color: #f03e1b;
+    }
+
+    html.dark-mode .cart-items-header {
+      color: #f0ece4;
+    }
+
+    html.dark-mode .item-name {
+      color: #f0ece4;
+    }
+
+    html.dark-mode .item-price {
+      color: #b8a89a;
+    }
+
+    html.dark-mode .item-total {
+      color: #f0ece4;
+    }
+
+    .cart-container {
+      max-width: 1000px;
+      margin: 100px auto 2rem;
+      padding: 0 3rem;
+    }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .cart-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .back-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--dark); }
+
+    /* Cart Grid */
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Cart Items */
+    .cart-items {
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+    }
+
+    .cart-items-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cart-item {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: background 0.2s;
+    }
+
+    .cart-item:hover {
+      background: rgba(240,62,27,0.02);
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-name {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 1.05rem;
+    }
+
+    .item-price {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .qty-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .qty-display {
+      width: 35px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .item-total {
+      min-width: 60px;
+      text-align: right;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+      padding: 0;
+    }
+
+    .remove-btn:hover {
+      color: var(--accent);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+
+    .empty-emoji {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .empty-state h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    /* Order Summary */
+    .order-summary {
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem;
+      height: fit-content;
+      position: sticky;
+      top: 80px;
+    }
+
+    .summary-title {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .summary-row.total {
+      border-top: 2px solid var(--border);
+      padding-top: 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 1.5rem;
+    }
+
+    .checkout-btn:hover {
+      background: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    .continue-shopping {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .continue-shopping a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .cart-container { padding: 0 1.5rem; margin-top: 80px; }
+      .cart-grid { grid-template-columns: 1fr; }
+      .order-summary { position: static; }
+      .cart-item { flex-direction: column; align-items: flex-start; }
+      .item-controls { align-self: flex-end; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="{{ url_for('dashboard') }}" class="nav-logo">
+      <div class="logo-mark">G</div>
+      <span class="logo-name">quickbites</span>
+    </a>
+    <div class="nav-links">
+      <a href="{{ url_for('dashboard') }}#menu">Menu</a>
+      <a href="{{ url_for('view_cart') }}" style="background: var(--accent); color: #fff; padding: 0.55rem 1.3rem; border-radius: 100px; font-weight: 600; text-decoration: none;">🛒 Cart</a>
+      <a href="{{ url_for('logout') }}" class="nav-cta">Logout</a>
+      <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+    </div>
+  </nav>
+
+  <!-- CART SECTION -->
+  <div class="cart-container">
+    <div class="cart-header">
+      <h1 class="cart-title">Your Cart</h1>
+      <a href="{{ url_for('dashboard') }}" class="back-link">← Back to Menu</a>
+    </div>
+
+    {% if cart %}
+    <div class="cart-grid">
+      <!-- Cart Items -->
+      <div class="cart-items">
+        <div class="cart-items-header">Items in Cart</div>
+        {% for item in cart %}
+        <div class="cart-item">
+          <div class="item-info">
+            <div class="item-name">{{ item.name }}</div>
+            <div class="item-price">₹{{ item.price }}</div>
+          </div>
+          <div class="item-controls">
+            <button class="qty-btn" onclick="updateQty({{ item.id }}, {{ item.quantity - 1 }})">−</button>
+            <div class="qty-display">{{ item.quantity }}</div>
+            <button class="qty-btn" onclick="updateQty({{ item.id }}, {{ item.quantity + 1 }})">+</button>
+          </div>
+          <div class="item-total">₹{{ (item.price * item.quantity)|int }}</div>
+          <button class="remove-btn" onclick="removeItem({{ item.id }})">✕</button>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <div class="summary-title">Order Summary</div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>₹{{ total|int }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Delivery</span>
+          <span>₹0</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span>₹{{ total|int }}</span>
+        </div>
+        <form method="post" action="{{ url_for('checkout') }}">
+          <button type="submit" class="checkout-btn">Proceed to Checkout</button>
+        </form>
+        <div class="continue-shopping">
+          <a href="{{ url_for('dashboard') }}#menu">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="cart-items">
+      <div class="empty-state">
+        <div class="empty-emoji">🛒</div>
+        <h2>Your cart is empty</h2>
+        <p>Add delicious items to get started</p>
+        <br>
+        <a href="{{ url_for('dashboard') }}#menu" style="color: var(--accent); text-decoration: none; font-weight: 600;">← Back to Menu</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    // ── DARK MODE ──
+    const html = document.documentElement;
+    const toggleBtn = document.getElementById('dark-toggle');
+
+    // Default: dark mode ON; respect saved preference
+    const savedTheme = localStorage.getItem('qb-theme');
+    if (savedTheme === 'light') {
+      html.classList.remove('dark-mode');
+    } else {
+      html.classList.add('dark-mode');
+      if (!savedTheme) localStorage.setItem('qb-theme', 'dark');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = html.classList.toggle('dark-mode');
+      localStorage.setItem('qb-theme', isDark ? 'dark' : 'light');
+    });
+
+    // ── CART ──
+    async function updateQty(itemId, newQty) {
+      try {
+        const response = await fetch('/update-cart-qty', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: itemId,
+            quantity: newQty
+          })
+        });
+        
+        if (response.ok) {
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    async function removeItem(itemId) {
+      if (confirm('Remove this item from cart?')) {
+        try {
+          const response = await fetch('/remove-from-cart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              id: itemId
+            })
+          });
+          
+          if (response.ok) {
+            window.location.reload();
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

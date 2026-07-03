@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BICE — Behavioral Identity Continuity Engine</title>
+    <style>
+        :root {
+            --bg:      #050b14;
+            --glass:   rgba(255,255,255,0.02);
+            --border:  rgba(255,255,255,0.08);
+            --ok:      #00f2ad;
+            --warn:    #ffb86c;
+            --bad:     #ff4769;
+            --text:    #e0e6ed;
+            --muted:   #5a708a;
+            --font:    'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
+            --mono:    'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            min-height: 100vh;
+            padding: 2.5rem;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(0, 242, 173, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(255, 71, 105, 0.04) 0%, transparent 40%);
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-group h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+        .logo-group p { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+        
+        .sys-status { display: flex; align-items: center; gap: 12px; font-size: 0.7rem; font-weight: 600; color: var(--muted); }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s;
+            backdrop-filter: blur(12px);
+        }
+        .card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
+        .card.alert-active { border-color: rgba(255, 71, 105, 0.4); box-shadow: 0 12px 40px rgba(255, 71, 105, 0.08); }
+        .card.quarantined { border-color: var(--warn); background: rgba(255, 184, 108, 0.03); }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .dev-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .status-pill { 
+            font-size: 0.65rem; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+            text-transform: uppercase; letter-spacing: 0.05em; background: rgba(0, 242, 173, 0.1); color: var(--ok);
+        }
+        .alert-active .status-pill { background: rgba(255, 71, 105, 0.1); color: var(--bad); }
+        .quarantined .status-pill { background: rgba(255, 184, 108, 0.1); color: var(--warn); }
+
+        /* Trust Score Gauge */
+        .trust-section { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .gauge-wrap { position: relative; width: 64px; height: 64px; }
+        .gauge-svg { transform: rotate(-90deg); }
+        .gauge-bg { fill: none; stroke: var(--border); stroke-width: 6; }
+        .gauge-val { fill: none; stroke: var(--ok); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+        .trust-val { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; font-family: var(--mono); }
+
+        .spark { display:block; width:120px; height:36px; }
+
+        .drift-info .lbl { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
+        .drift-info .val { font-size: 1.4rem; font-weight: 700; font-family: var(--mono); }
+
+        /* Features */
+        .features { margin-bottom: 1.5rem; }
+        .feat-row { margin-bottom: 0.8rem; }
+        .feat-meta { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; }
+        .feat-meta span:last-child { color: var(--text); font-family: var(--mono); }
+        .bar-bg { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+        .bar-val { height: 100%; background: var(--ok); transition: width 0.6s ease; }
+        .alert-active .bar-val { background: var(--bad); }
+
+        /* Controls */
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .btn {
+            background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--text);
+            padding: 10px; cursor: pointer; font-family: var(--mono); font-size: 0.65rem; font-weight: 600;
+            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn:hover { background: rgba(255,255,255,0.04); border-color: var(--text); }
+        .btn-atk.active { background: rgba(255, 71, 105, 0.1); border-color: var(--bad); color: var(--bad); }
+        .btn-quar.active { background: rgba(255, 184, 108, 0.1); border-color: var(--warn); color: var(--warn); }
+
+        .status-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 16px; padding: 1rem 1.2rem; min-height: 100px; display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; }
+        .stat-label { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--text); }
+        .action-card { text-align: right; align-items: center; display: flex; justify-content: flex-end; }
+        .reset-btn { width: 100%; border-color: rgba(255,255,255,0.12); color: var(--text); }
+
+        /* Modal */
+        .modal { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; opacity: 0; transition: opacity 220ms ease; }
+        .modal.open { pointer-events: auto; opacity: 1; }
+        .modal-backdrop { position: absolute; inset: 0; background: rgba(2,6,12,0.6); backdrop-filter: blur(4px); }
+        .modal-panel { position: relative; z-index: 2; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; width: min(940px, 96%); max-height: 78vh; overflow: auto; }
+        .modal-panel pre { white-space: pre-wrap; font-family: var(--mono); color: var(--text); font-size: 0.85rem; }
+        .modal-close { position: absolute; right: 12px; top: 12px; background: transparent; border: none; color: var(--muted); font-weight: 700; cursor: pointer; }
+
+        /* Log */
+        .log-panel { background: var(--glass); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+        .log-header { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .log-row { display: grid; grid-template-columns: 80px 140px 1fr 100px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.75rem; align-items: center; }
+        .log-row:last-child { border-bottom: none; }
+        .log-time { color: var(--muted); font-family: var(--mono); }
+        .log-dev { font-weight: 700; color: var(--bad); }
+        .log-msg { color: var(--text); opacity: 0.9; }
+        .log-drift { color: var(--muted); font-family: var(--mono); text-align: right; }
+        .empty { font-size: 0.8rem; color: var(--muted); text-align: center; padding: 2rem; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .log-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
+            .log-drift { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-group">
+        <h1>BICE Dashboard</h1>
+        <p>Behavioral Identity Continuity Engine</p>
+    </div>
+    <div class="sys-status">
+        <div class="dot"></div>
+        SECURE NODE ACTIVE
+    </div>
+</header>
+
+<div class="toolbar" style="margin-bottom:1rem; display:flex; gap:12px; align-items:center;">
+    <input id="search" placeholder="Search devices" style="flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:var(--text);" />
+    <label style="font-size:0.85rem;color:var(--muted);"><input id="filterAlerts" type="checkbox" style="margin-right:6px;"/> Alerts</label>
+    <label style="font-size:0.85rem;color:var(--muted);"><input id="filterQuar" type="checkbox" style="margin-right:6px;"/> Quarantine</label>
+    <select id="groupBy" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text);">
+        <option value="none">No group</option>
+        <option value="alert">Group by Alert</option>
+    </select>
+</div>
+
+<div class="status-row">
+    <div class="stat-card">
+        <div class="stat-label">Devices</div>
+        <div class="stat-value" id="deviceCount">—</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Active Alerts</div>
+        <div class="stat-value" id="alertCount">—</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Calibrated</div>
+        <div class="stat-value" id="calibratedCount">—</div>
+    </div>
+    <div class="stat-card action-card">
+        <button class="btn reset-btn" onclick="resetRun()">RESET RUN</button>
+    </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="log-panel">
+    <div class="log-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Anomaly Feed
+    </div>
+    <div id="log"><p class="empty">Scanning network for behavioral drift...</p></div>
+</div>
+
+<script>
+    const MAX_VALS = {}; // Track perceived max for scaling bars
+
+    function card(d) {
+        const circum = 2 * Math.PI * 28;
+        const offset = circum - (d.trust / 100) * circum;
+        
+        let status = 'NOMINAL';
+        let cardClass = '';
+        if (d.quarantine) { status = 'QUARANTINED'; cardClass = 'quarantined'; }
+        else if (d.alert) { status = 'ANOMALY'; cardClass = 'alert-active'; }
+
+        const features = Object.entries(d.features).map(([k, v]) => {
+            const key = `${d.name}_${k}`;
+            MAX_VALS[key] = Math.max(MAX_VALS[key] || 1, v);
+            const pct = (v / MAX_VALS[key]) * 100;
+            return `
+            <div class="feat-row">
+                <div class="feat-meta"><span>${k.replace('_', ' ')}</span><span>${v}</span></div>
+                <div class="bar-bg"><div class="bar-val" style="width: ${pct}%"></div></div>
+            </div>`;
+        }).join('');
+
+        return `
+        <div class="card ${cardClass}" onclick="showModal('${d.name.replace(/'/g, "\\'")}')">
+            <div class="card-header">
+                <div class="dev-info">
+                    <h3>${d.name}</h3>
+                    <div class="status-pill">${status}</div>
+                </div>
+                <div class="trust-val">${d.trust}%</div>
+            </div>
+            
+            <div class="trust-section">
+                <div class="gauge-wrap">
+                    <svg class="gauge-svg" width="64" height="64">
+                        <circle class="gauge-bg" cx="32" cy="32" r="28" />
+                        <circle class="gauge-val" cx="32" cy="32" r="28" style="stroke-dasharray: ${circum}; stroke-dashoffset: ${offset}; stroke: ${d.trust > 70 ? 'var(--ok)' : d.trust > 40 ? 'var(--warn)' : 'var(--bad)'}" />
+                    </svg>
+                    <div class="trust-val">${d.trust}</div>
+                </div>
+                <div class="drift-info">
+                    <div class="lbl">Drift Index (Δ)</div>
+                    <div class="val" style="color: ${d.alert ? 'var(--bad)' : 'var(--text)'}">${d.drift}</div>
+                </div>
+            </div>
+
+            <div class="features">${features}</div>
+
+            <div class="controls">
+                <button class="btn btn-atk ${d.attacked ? 'active' : ''}" onclick="toggle('attack', '${d.name}')">
+                    ${d.attacked ? '■ END ATTACK' : '▶ INJECT ATK'}
+                </button>
+                <button class="btn btn-quar ${d.quarantine ? 'active' : ''}" onclick="toggle('quarantine', '${d.name}')">
+                    ${d.quarantine ? '◌ RELEASE' : 'Ø QUARANTINE'}
+                </button>
+            </div>
+            ${d.alert ? `<div style="font-size: 0.6rem; color: var(--bad); margin-top: 1rem; font-weight: 700; letter-spacing: 0.05em; opacity: 0.8;">⚠ ${d.explanation.toUpperCase()}</div>` : ''}
+        </div>`;
+    }
+
+    async function toggle(type, name) {
+        await fetch(`/api/${type}/${encodeURIComponent(name)}`, { method: 'POST' });
+        update();
+    }
+
+    async function getCalibration() {
+        const r = await fetch('/api/calibration').then(res => res.json());
+        document.getElementById('calibratedCount').textContent = r.calibrated_count ?? 0;
+        return r;
+    }
+
+    async function resetRun() {
+        await fetch('/api/reset', { method: 'POST' });
+        document.getElementById('log').innerHTML = '<p class="empty">Simulation reset. Waiting for new telemetry...</p>';
+        update();
+    }
+
+    function createModalIfNeeded() {
+        if (document.getElementById('deviceModal')) return;
+        const modal = document.createElement('div');
+        modal.id = 'deviceModal';
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-backdrop" onclick="closeModal()"></div>
+            <div class="modal-panel">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 style="margin:0 0 12px 0;">Device Details</h3>
+                <pre id="modalContent">loading...</pre>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    function showModal(name) {
+        createModalIfNeeded();
+        fetch('/api/state').then(res => res.json()).then(state => {
+            const device = (state.assets || []).find(a => a.name === name);
+            const content = document.getElementById('modalContent');
+            if (!device) {
+                content.textContent = 'Device not found.';
+            } else {
+                const nice = JSON.stringify(device, null, 2);
+                content.textContent = nice;
+            }
+            document.getElementById('deviceModal').classList.add('open');
+        }).catch(err => {
+            createModalIfNeeded();
+            document.getElementById('modalContent').textContent = 'Error fetching device: ' + err;
+            document.getElementById('deviceModal').classList.add('open');
+        });
+    }
+
+    function closeModal() { const m = document.getElementById('deviceModal'); if (m) m.classList.remove('open'); }
+
+    async function update() {
+        try {
+            const [state, cal] = await Promise.all([fetch('/api/state').then(res => res.json()), getCalibration()]);
+            if (!state.ready) {
+                document.getElementById('grid').innerHTML = '<div class="empty" style="padding: 2rem;">Waiting for devices to warm up...</div>';
+                document.getElementById('deviceCount').textContent = state.assets?.length ?? 0;
+                document.getElementById('alertCount').textContent = state.alerts?.length ?? 0;
+                return;
+            }
+
+            document.getElementById('grid').innerHTML = state.assets.map(card).join('');
+            document.getElementById('deviceCount').textContent = state.assets.length;
+            document.getElementById('alertCount').textContent = state.alerts.length;
+
+            const logEl = document.getElementById('log');
+            if (!state.alerts || state.alerts.length === 0) {
+                logEl.innerHTML = '<p class="empty">No active anomalies detected.</p>';
+            } else {
+                logEl.innerHTML = state.alerts.map(a => `
+                    <div class="log-row">
+                        <div class="log-time">${a.time}</div>
+                        <div class="log-dev">${a.device}</div>
+                        <div class="log-msg">${a.msg}</div>
+                        <div class="log-drift">Δ ${a.drift}</div>
+                    </div>
+                `).join('');
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    setInterval(update, 1000);
+    update();
+</script>
+
+</body>
+</html>

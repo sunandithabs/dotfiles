@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — Quickbites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #0d0c0a;
+      color: #f0ece4;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .page {
+      width: 100%;
+      max-width: 720px;
+      background: #161512;
+      border: 1px solid #2e2b24;
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.3);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      background: #f5a623;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      color: #0d0c0a;
+    }
+    .brand-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      color: #f0ece4;
+    }
+    p {
+      color: #b8a89a;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1rem;
+      border-radius: 999px;
+      background: rgba(76,175,118,0.15);
+      color: #a3f7bf;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .summary-card {
+      background: #1e1c18;
+      border: 1px solid #2e2b24;
+      border-radius: 18px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+      color: #d0c9bd;
+    }
+    .summary-row.total {
+      font-weight: 700;
+      color: #f0ece4;
+      border-top: 1px solid #2e2b24;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 0.95rem 1.4rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .button-primary {
+      background: #f5a623;
+      color: #0d0c0a;
+    }
+    .button-primary:hover { transform: translateY(-1px); }
+    .button-secondary {
+      background: transparent;
+      border: 1px solid #2e2b24;
+      color: #f0ece4;
+    }
+    .button-secondary:hover { background: rgba(255,255,255,0.04); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="brand">
+      <div class="brand-mark">G</div>
+      <div class="brand-name">quickbites</div>
+    </div>
+
+    <div class="status-pill">Payment completed ✓</div>
+    <h1>Order #{{ order_id }} confirmed</h1>
+    <p>Your payment is done and everything is set. Your delicious order is on its way and should reach you in about <strong>{{ eta }}</strong>. Thank you for ordering with quickbites.</p>
+
+    <div class="summary-card">
+      <div class="summary-row">
+        <span>Order total</span>
+        <span>₹{{ total|int }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Delivery status</span>
+        <span>Confirmed</span>
+      </div>
+      <div class="summary-row total">
+        <span>Estimated arrival</span>
+        <span>{{ eta }}</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="button button-primary" href="{{ url_for('dashboard') }}">Continue Browsing</a>
+      <a class="button button-secondary" href="{{ url_for('view_cart') }}">View Cart</a>
+    </div>
+  </div>
+</body>
+</html>

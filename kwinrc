@@ -1,0 +1,11 @@
+[Plugins]
+eyeonscreenEnabled=true
+glideEnabled=true
+scaleEnabled=false
+windowapertureEnabled=false
+
+[org.kde.kdecoration2]
+ButtonsOnLeft=
+ButtonsOnRight=IAX
+library=org.kde.klassy
+theme=Klassy

@@ -1,0 +1,39 @@
+{
+  "environment": {
+    "executable": "/home/smtx724/Downloads/HADES/.venv/bin/python",
+    "prefix": "/home/smtx724/Downloads/HADES/.venv",
+    "version": "3.14.6.final.0",
+    "is64Bit": true,
+    "symlinks": [
+      "/home/smtx724/Downloads/HADES/.venv/bin/python",
+      "/home/smtx724/Downloads/HADES/.venv/bin/python3",
+      "/home/smtx724/Downloads/HADES/.venv/bin/python3.14"
+    ]
+  },
+  "symlinks": [
+    [
+      "/home/smtx724/Downloads/HADES/.venv/bin/python",
+      {
+        "secs_since_epoch": 1781523414,
+        "nanos_since_epoch": 0
+      },
+      null
+    ],
+    [
+      "/home/smtx724/Downloads/HADES/.venv/bin/python3",
+      {
+        "secs_since_epoch": 1781523414,
+        "nanos_since_epoch": 0
+      },
+      null
+    ],
+    [
+      "/home/smtx724/Downloads/HADES/.venv/bin/python3.14",
+      {
+        "secs_since_epoch": 1781523414,
+        "nanos_since_epoch": 0
+      },
+      null
+    ]
+  ]
+}

@@ -1,0 +1,377 @@
+Successfully killed persistent terminal 0d574147-0e5f-41c7-b98d-1733f29399b0. Final output before termination:
+
+[WARNING]: Console output during zsh initialization detected.
+
+When using Powerlevel10k with instant prompt, console output during zsh
+initialization may indicate issues.
+
+You can:
+
+  - Recommended: Change ~/.zshrc so that it does not perform console I/O
+    after the instant prompt preamble. See the link below for details.
+
+    * You will not see this error message again.
+    * Zsh will start quickly and prompt will update smoothly.
+
+  - Suppress this warning either by running p10k configure or by manually
+    defining the following parameter:
+
+      typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+    * You will not see this error message again.
+    * Zsh will start quickly but prompt will jump down after initialization.
+
+  - Disable instant prompt either by running p10k configure or by manually
+    defining the following parameter:
+
+      typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
+    * You will not see this error message again.
+    * Zsh will start slowly.
+
+  - Do nothing.
+
+    * You will see this error message every time you start zsh.
+    * Zsh will start quickly but prompt will jump down after initialization.
+
+For details, see:
+https://github.com/romkatv/powerlevel10k#instant-prompt
+
+-- console output produced during zsh initialization follows --
+
+                  -`                     smtx724@nyx
+                 .o+`                    -----------
+                `ooo/                    OS  Arch Linux x86_64
+               `+oooo:                   Kernel  Linux 7.0.10-arch1-1
+              `+oooooo:                  Uptime  1 hour, 20 mins
+              -+oooooo+:                 Packages  1101 (pacman)
+            `/:-:++oooo+:                Shell  zsh 5.9
+           `/++++/+++++++:               Display (MNG007QX2-1)  1920x1200 in 16", 144 Hz [Built-in]+++++++:
+         `/+++ooooooooooooo/`            WM  Hyprland 0.55.2 (Wayland)
+        ./ooosssso++osssssso+`           Terminal  code 1.121.0
+       .oossssso-````/ossssss+`          CPU  Intel(R) Core(TM) 5 210H (12) @ 4.80 GHz-osssssso.      :ssssssso.
+     :osssssss/        osssso+++.        GPU 1  NVIDIA GeForce RTX 3050 A Laptop GPU [Discrete]        +ssssooo/-
+  `/ossssso+/:-        -:/+osssso+-      GPU 2  Intel Graphics @ 1.40 GHz [Integrated]+:-`                 `.-/+oso:
+`++:.                           `-/+/    Memory  6.89 GiB / 15.24 GiB (45%)
+.`                                 `/    -----------
+                                                                 
+                                                                 
+
+
+❯ 
+❯  /home/smtx724/projects/big/bice/venv/bin/python /home/smtx724/projects/big/bice/run.py --dataset selected_dataset --port 8000
+INFO:     Started server process [19107]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:56454 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58814 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36682 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/calibration HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54440 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54660 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54436 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54426 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54420 - "GET /api/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40410 - "GET /api/state HTTP/1.1" 200 OK

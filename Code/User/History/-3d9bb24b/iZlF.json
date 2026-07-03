@@ -1,0 +1,10 @@
+{
+  "users": [
+    { "id": "u1", "username": "aditya.sharma", "password": "student1", "role": "student", "displayName": "Aditya Sharma" },
+    { "id": "t1", "username": "dr.ramesh", "password": "teacher1", "role": "teacher", "displayName": "Dr. Ramesh Kumar" }
+  ],
+  "problems": [
+    { "id": "p1", "title": "Two Sum", "type": "programming", "difficulty": "easy", "points": 50 }
+  ],
+  "submissions": []
+}

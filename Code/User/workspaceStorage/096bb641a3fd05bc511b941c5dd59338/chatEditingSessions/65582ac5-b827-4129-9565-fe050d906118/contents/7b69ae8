@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+# App files
+WORKDIR /app
+COPY . /app
+
+WORKDIR /app/server
+
+# Install only server deps
+RUN npm install --production --prefix /app/server
+
+EXPOSE 3000
+
+ENV NODE_ENV=production
+
+CMD ["node", "index.js"]

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulyn - Teacher Dashboard</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/teacher.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="grid-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div id="toast-container"></div>
+
+  <!-- Big Red Alert Overlay -->
+  <div id="cheat-alert-overlay">
+    <div class="alert-modal">
+      <h2>CHEATING DETECTED</h2>
+      <div class="student-name" id="alert-student-name">Student Name</div>
+      <div class="violation-type" id="alert-violation-type">Tab Switch Detected</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 25px;">
+        Incident logged at <span id="alert-time">00:00:00</span>
+      </div>
+      <button class="btn btn-danger" style="width: 100%; justify-content: center;" onclick="dismissAlert()">DISMISS ALERT</button>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-mark">⚡ SIMULYN</div>
+        <div class="logo-sub">Teacher Dashboard</div>
+      </div>
+
+      <div class="user-card">
+        <div class="avatar" id="sb-avatar">RK</div>
+        <div class="user-info">
+          <div class="user-name" id="sb-name">Dr. Ramesh Kumar</div>
+          <div class="user-level" style="color: var(--purple-300)">Instructor</div>
+        </div>
+      </div>
+
+      <nav class="nav-section" style="margin-top:20px">
+        <div class="nav-section-label">Main Menu</div>
+        <div class="nav-item active" id="nav-overview" onclick="navigate('overview')">
+          <span class="nav-icon"></span> Overview
+        </div>
+        <div class="nav-item" id="nav-monitor" onclick="navigate('monitor')">
+          <span class="nav-icon"></span> Live Monitor
+          <span class="nav-badge" id="violation-badge-nav" style="display:none">!</span>
+        </div>
+        <div class="nav-item" id="nav-labs" onclick="navigate('labs')">
+          <span class="nav-icon"></span> Manage Labs
+        </div>
+        <div class="nav-item" id="nav-analytics" onclick="navigate('analytics')">
+          <span class="nav-icon"></span> Analytics
+        </div>
+      </nav>
+
+      <div class="nav-section">
+        <div class="nav-section-label">Account</div>
+        <div class="nav-item" onclick="Auth.logout()">
+          <span class="nav-icon"></span> Logout
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Overview Page -->
+      <section id="page-overview">
+        <div class="page-header">
+          <h1 class="page-title">Overview</h1>
+          <div class="page-subtitle">Quick summary of student activity and lab status.</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"></div>
+            <div class="stat-number" id="stat-students">0</div>
+            <div class="stat-label">Total Students</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple"></div>
+            <div class="stat-number" id="stat-problems">0</div>
+            <div class="stat-label">Active Labs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"></div>
+            <div class="stat-number" id="stat-submissions">0</div>
+            <div class="stat-label">Today's Solves</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon gold"></div>
+            <div class="stat-number" id="stat-avg-xp">0</div>
+            <div class="stat-label">Avg Student XP</div>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+          <div class="card">
+            <div style="font-weight: 700; margin-bottom: 20px;">Class Progress</div>
+            <canvas id="progressChart" height="200"></canvas>
+          </div>
+          <div class="card">
+            <div style="font-weight: 700; margin-bottom: 20px;">Top Performers</div>
+            <div id="top-students-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-monitor" style="display:none">
+        <div class="page-header">
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="page-title">Live Monitor</h1>
+              <div class="page-subtitle">Real-time anti-cheat surveillance for active tests.</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="createNewTest()">+ Launch New Test</button>
+          </div>
+        </div>
+
+        
+        <div id="active-test-info" class="card card-gold" style="margin-bottom: 24px; display: none;">
+          <div class="flex items-center justify-between">
+            <div>
+              <div id="active-test-title" style="font-weight: 700; font-size: 1.1rem;">Mid-Term Lab #1</div>
+              <div id="active-test-meta" style="font-size: 0.8rem; color: var(--text-muted);">Duration: 60m | Proctors: 1</div>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="endCurrentTest()">End Exam</button>
+          </div>
+        </div>
+
+        <div class="monitor-grid" id="monitor-grid">
+          <!-- Student cards will be injected here -->
+        </div>
+      </section>
+
+      <!-- Manage Labs Page -->
+      <section id="page-labs" style="display:none">
+        <div class="page-header">
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="page-title">Manage Labs</h1>
+              <div class="page-subtitle">Create, edit, and organize lab problems for your students.</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openAddProblemModal()">+ Create New Problem</button>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0;">
+          <table class="lab-mgmt-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Difficulty</th>
+                <th>Points</th>
+                <th>Submissions</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="labs-table-body">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Analytics Page -->
+      <section id="page-analytics" style="display:none">
+        <div class="page-header">
+          <h1 class="page-title">Advanced Analytics</h1>
+          <div class="page-subtitle">Deep dive into student performance and problem difficulty.</div>
+        </div>
+
+        <div class="grid" style="grid-template-columns: 2fr 1fr; gap: 24px;">
+          <div class="chart-container">
+            <div style="font-weight: 700; margin-bottom: 20px;">Submission Success Rate per Problem</div>
+            <canvas id="accuracyChart"></canvas>
+          </div>
+          <div class="chart-container">
+            <div style="font-weight: 700; margin-bottom: 20px;">Language Usage Distribution</div>
+            <canvas id="langChart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add Problem Modal -->
+  <div class="modal-backdrop" id="problem-modal" style="display:none">
+    <div class="modal">
+      <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 id="prob-modal-title" style="font-size: 1.2rem;">Create New Lab Problem</h2>
+        <button type="button" onclick="closeAddProblemModal()" style="font-size: 1.5rem; color: var(--text-muted);">&times;</button>
+      </div>
+      <form id="problem-form" onsubmit="handleProblemSubmit(event)">
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">Problem Title</label>
+          <input class="form-input" id="prob-title" required placeholder="e.g. Reverse a Linked List" />
+        </div>
+        <div class="flex gap-4" style="margin-bottom: 12px;">
+          <div class="form-group flex-1">
+            <label class="form-label">Category</label>
+            <input class="form-input" id="prob-cat" required placeholder="e.g. Data Structures" />
+          </div>
+          <div class="form-group flex-1">
+            <label class="form-label">Difficulty</label>
+            <select class="form-input form-select" id="prob-diff">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">Points</label>
+          <input class="form-input" type="number" id="prob-points" required value="100" />
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label">Description (Markdown supported)</label>
+          <textarea class="form-input form-textarea" id="prob-desc" required placeholder="Describe the problem, constraints and examples..."></textarea>
+        </div>
+        <div style="display:flex; justify-content: flex-end; gap: 12px;">
+          <button type="button" class="btn btn-ghost" onclick="closeAddProblemModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-prob-btn">Save Problem</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Student Log Modal -->
+  <div class="modal-backdrop" id="student-log-modal" style="display:none">
+    <div class="modal" style="max-width: 600px;">
+      <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 1.2rem;">Student Activity Log: <span id="log-student-name" style="color:var(--gold-400)">Name</span></h2>
+        <button type="button" onclick="closeStudentLogModal()" style="font-size: 1.5rem; color: var(--text-muted);">&times;</button>
+      </div>
+      <div id="student-log-content" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+        <!-- Log items injected here -->
+      </div>
+      <div style="display:flex; justify-content: flex-end; margin-top: 20px;">
+        <button type="button" class="btn btn-ghost" onclick="closeStudentLogModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>

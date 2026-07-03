@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders — Quickbites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf7f2;
+      --surface: #fff;
+      --dark: #1a1508;
+      --accent: #f03e1b;
+      --accent2: #f5a623;
+      --muted: #9a9080;
+      --border: #ede8df;
+    }
+    html.dark-mode {
+      --bg: #0d0c0a;
+      --surface: #1a1816;
+      --dark: #f0ece4;
+      --accent: #f03e1b;
+      --accent2: #f5a623;
+      --muted: #8a8078;
+      --border: #2a2620;
+    }
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 1rem 2rem 3rem;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--dark);
+    }
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a.nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 0.65rem 1.2rem;
+      border-radius: 999px;
+    }
+    .nav-links a.nav-cta:hover {
+      background: #d94300;
+    }
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 2.5vw, 3rem);
+      margin: 1rem 0 0.5rem;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .orders-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .order-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+    }
+    .order-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    .order-id {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark);
+    }
+    .order-meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .status-pill {
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(240,62,27,0.12);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .items-list {
+      margin-top: 1rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .item-name {
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .item-data {
+      display: inline-flex;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .order-footer {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+    .empty-state h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    .empty-state a {
+      display: inline-block;
+      margin-top: 1.25rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      .page-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('dashboard') }}" class="nav-logo">
+      <div class="logo-mark">G</div>
+      <span>quickbites</span>
+    </a>
+    <div class="nav-links">
+      <a href="{{ url_for('dashboard') }}#menu">Menu</a>
+      <a href="{{ url_for('view_cart') }}">Cart</a>
+      <a href="{{ url_for('logout') }}" class="nav-cta">Logout</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="page-title">My Orders</h1>
+    <p class="subtitle">Track your previous deliveries and check what’s on the way.</p>
+
+    {% if orders %}
+      <div class="orders-grid">
+        {% for order in orders %}
+          <section class="order-card">
+            <div class="order-header">
+              <div>
+                <div class="order-id">Order #{{ order.id }}</div>
+                <div class="order-meta">Placed {{ order.ordered_at }}</div>
+              </div>
+              <span class="status-pill">{{ order.status|capitalize }}</span>
+            </div>
+            <div class="items-list">
+              {% for item in order['items'] %}
+                <div class="item-row">
+                  <div>
+                    <div class="item-name">{{ item.emoji }} {{ item.name }}</div>
+                    <div class="item-data">Qty {{ item.quantity }}</div>
+                  </div>
+                  <div class="item-data">₹{{ item.subtotal|int }}</div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="order-footer">
+              <span>{{ order.address }}</span>
+              <span><strong>Total</strong> ₹{{ order['total']|int }}</span>
+            </div>
+          </section>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h2>No orders yet</h2>
+        <p>Once you place an order, it will appear here for easy tracking.</p>
+        <a href="{{ url_for('dashboard') }}#menu">Start ordering</a>
+      </div>
+    {% endif %}
+  </main>
+</body>
+</html>

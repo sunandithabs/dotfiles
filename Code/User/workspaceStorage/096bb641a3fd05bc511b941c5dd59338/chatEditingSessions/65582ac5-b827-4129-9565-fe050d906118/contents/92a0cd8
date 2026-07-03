@@ -1,0 +1,18 @@
+{
+  "name": "simulyn-server",
+  "version": "0.1.0",
+  "description": "Minimal static server and demo API for Simulyn (development only)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "stop": "lsof -ti tcp:3000 | xargs -r kill || true"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "express-rate-limit": "^6.7.0",
+    "cors": "^2.8.5"
+  }
+}

@@ -1,0 +1,81 @@
+{
+    "telemetry.sqmId": "",
+    "telemetry.machineId": "ca5d5a1154270ec18add3295e5b019ce7ea3d6e908f538ed8b0f7e86ec1557ed",
+    "telemetry.macMachineId": "bee7c93d713f82cc019eb9261abbfb436fc67d153c9d1fd9136e94203ca15c1d",
+    "telemetry.devDeviceId": "6b8fa7c4-4daa-489b-bd30-77a7ff9be328",
+    "backupWorkspaces": {
+        "workspaces": [],
+        "folders": [
+            {
+                "folderUri": "file:///home/smtx724/projects/simulyn"
+            }
+        ],
+        "emptyWindows": [
+            {
+                "backupFolder": "1781267927026"
+            }
+        ]
+    },
+    "windowControlHeight": 35,
+    "profileAssociations": {
+        "workspaces": {
+            "file:///home/smtx724/projects/simulyn": "__default__profile__"
+        },
+        "emptyWindows": {
+            "1781267927026": "__default__profile__"
+        }
+    },
+    "theme": "vs",
+    "themeBackground": "#fcfcfc",
+    "windowSplash": {
+        "zoomLevel": 0,
+        "baseTheme": "vs",
+        "colorInfo": {
+            "foreground": "rgba(20, 20, 20, 0.92)",
+            "background": "#fcfcfc",
+            "editorBackground": "#fcfcfc",
+            "titleBarBackground": "#f3f3f3",
+            "titleBarBorder": "rgba(20, 20, 20, 0.07)",
+            "activityBarBackground": "#f3f3f3",
+            "sideBarBackground": "#f3f3f3",
+            "sideBarBorder": "rgba(20, 20, 20, 0.07)",
+            "statusBarBackground": "#f3f3f3",
+            "statusBarBorder": "rgba(20, 20, 20, 0.07)",
+            "statusBarNoFolderBackground": "#f3f3f3"
+        },
+        "layoutInfo": {
+            "sideBarSide": "left",
+            "editorPartMinWidth": 220,
+            "titleBarHeight": 34,
+            "activityBarWidth": 0,
+            "sideBarWidth": 214,
+            "auxiliarySideBarWidth": 300,
+            "statusBarHeight": 22,
+            "windowBorder": false
+        }
+    },
+    "windowsState": {
+        "lastActiveWindow": {
+            "folder": "file:///home/smtx724/projects/simulyn",
+            "backupPath": "/home/smtx724/.config/Cursor/Backups/736418202ee7f1ef7e991b82d48e44c9",
+            "uiState": {
+                "mode": 0,
+                "x": 0,
+                "y": 0,
+                "width": 472,
+                "height": 561
+            }
+        },
+        "openedWindows": []
+    },
+    "windowSplashWorkspaceOverride": {
+        "layoutInfo": {
+            "auxiliarySideBarWidth": [
+                300,
+                [
+                    "096bb641a3fd05bc511b941c5dd59338"
+                ]
+            ]
+        }
+    }
+}

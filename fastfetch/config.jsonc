@@ -1,0 +1,35 @@
+{
+  "logo": {
+    "source": "arch",
+    "color": {
+      "1": "red",
+      "2": "38;2;30;58;138",
+      "3": "red",
+      "4": "38;2;30;58;138",
+      "5": "red",
+      "6": "38;2;30;58;138"
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "color": "38;2;232;0;45"
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "terminal",
+    "cpu",
+    "gpu",
+    "memory",
+    "separator",
+    "colors"
+  ]
+}
